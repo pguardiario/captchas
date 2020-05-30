@@ -59,7 +59,7 @@ const solve = async (arguments) => {
         }
       },100)
 
-      return callback('ok')
+      return callback('OK')
 
     } else {
       return callback(request)

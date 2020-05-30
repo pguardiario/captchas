@@ -6,11 +6,13 @@ const solve = async (arguments) => {
   }
 
   const get = async (url) => {
-    return new Promise((resolve, reject) => {
+    let response = new Promise((resolve, reject) => {
       fetch(url).then(res => {
         resolve(res.json())
       })
     })
+    console.log(response)
+    return response
   }
 
   const waitForCaptcha = async (sitekey, method) => {

@@ -2,7 +2,7 @@
 Solve hCaptcha / reCaptcha v2 for Puppeteer / Selenium (2captcha.com account required)
 
 ## Selenium
-```
+```python
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time

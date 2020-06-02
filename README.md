@@ -16,7 +16,7 @@ from requests import get
 body = get("https://raw.githubusercontent.com/pguardiario/captchas/master/captchas.js").content.decode('utf8')
 driver.set_script_timeout(120)
 api_key = 'Your 2captcha API key'
-status = driver.execute_async_script(body, api_key)
+status = driver.execute_async_script(body, api_key, {})
 print(status)
 time.sleep(1)
 ```
@@ -34,7 +34,7 @@ const puppeteer = require('puppeteer')
   await page.addScriptTag({url: "https://cdn.jsdelivr.net/gh/pguardiario/captchas/captchas.js"})
   let status = await page.evaluate(async () => {
     return new Promise((resolve, reject) => {
-      solve([your_api_key, resolve])
+      solve([your_api_key, {}, resolve])
     })
   })
 

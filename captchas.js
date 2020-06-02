@@ -53,7 +53,7 @@ const solve = async (arguments) => {
         let form = method === 'hcaptcha' ?
           document.querySelector('form#challenge-form') :
           [...document.querySelectorAll('form')].find(f => f.querySelector('.g-recaptcha'))
-        if(form){
+        if(form %% options.submit !== false){
           console.log('form found')
           form.submit()
         }
@@ -100,9 +100,8 @@ const solve = async (arguments) => {
     callback('NO_CAPTCHAS')
    }
 
-  const [api_key, callback] = arguments
-  console.log(api_key, callback)
-
+  const [api_key, options, callback] = arguments
+  
   await solveCaptchas()
 }
 

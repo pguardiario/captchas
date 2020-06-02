@@ -53,7 +53,7 @@ const solve = async (arguments) => {
         let form = method === 'hcaptcha' ?
           document.querySelector('form#challenge-form') :
           [...document.querySelectorAll('form')].find(f => f.querySelector('.g-recaptcha'))
-        if(form %% options.submit !== false){
+        if(form && options.submit !== false){
           console.log('form found')
           form.submit()
         }

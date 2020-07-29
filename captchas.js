@@ -9,7 +9,7 @@ const solve = async (arguments) => {
     let response = new Promise((resolve, reject) => {
       fetch(url).then(res => {
         resolve(res.json())
-      })
+      }).catch(() => callback('BAD_FETCH'))
     })
     console.log(response)
     return response
@@ -17,11 +17,11 @@ const solve = async (arguments) => {
 
   const waitForCaptcha = async (sitekey, method) => {
     let key = method === 'hcaptcha' ? 'sitekey' : 'googlekey'
-    let api_url = `https://2captcha.com/in.php?key=${api_key}&method=${method}&${key}=${sitekey}&json=1&pageurl=${document.location.href}`
+    let api_url = `https://2captcha.com/in.php?header_acao=1&key=${api_key}&method=${method}&${key}=${sitekey}&json=1&pageurl=${document.location.href}`
 
     let {status, request} = await get(api_url)
     if(status) {
-      let result_url = `https://2captcha.com/res.php?key=${api_key}&action=get&id=${request}&json=1&soft_id=7996404`;
+      let result_url = `https://2captcha.com/res.php?header_acao=1&key=${api_key}&action=get&id=${request}&json=1&soft_id=7996404`;
       await delay(20000)
 
       while(true){
@@ -88,7 +88,8 @@ const solve = async (arguments) => {
   }
 
   const solveCaptchas = async () => {
-    // look for hcaptcha / recaptcha
+    // look for hcaptcha / recaptcha\
+    // setTimeout(() => callback('Failed'), 60000)
     let form = document.querySelector('#challenge-form')
     if(form){
       return await solveHcaptcha()
@@ -98,10 +99,11 @@ const solve = async (arguments) => {
       return await solveRecaptcha()
     }
     callback('NO_CAPTCHAS')
+
    }
 
   const [api_key, options, callback] = arguments
-  
+
   await solveCaptchas()
 }
 

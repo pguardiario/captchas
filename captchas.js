@@ -76,7 +76,9 @@ const solve = async (arguments) => {
 
   const solveRecaptcha = async () => {
     console.log('recaptcha')
-    let sitekey = document.querySelector('[data-sitekey]').getAttribute('data-sitekey')
+    let sitekey = document.querySelector('[data-sitekey]') ?
+      document.querySelector('[data-sitekey]').getAttribute('data-sitekey') :
+      document.querySelector('iframe[src*=api2]').src.match(/[?&]k=(\w+)/)[1]
 
     for(var iframe of document.querySelectorAll('iframe[src*=api2]')){
       iframe.style.border = 'solid 3px green'
@@ -94,7 +96,7 @@ const solve = async (arguments) => {
     if(form){
       return await solveHcaptcha()
     }
-    let div = document.querySelector('.g-recaptcha')
+    let div = document.querySelector('.g-recaptcha,#g-recaptcha-response')
     if(div){
       return await solveRecaptcha()
     }

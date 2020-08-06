@@ -7,9 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 
-opts = Options()
-opts.add_argument("--disable-web-security")
-driver = webdriver.Chrome(options=opts)
+driver = webdriver.Chrome()
 driver.get('https://www.site-with-captcha.com/')
 
 from requests import get
@@ -25,10 +23,7 @@ time.sleep(1)
 const puppeteer = require('puppeteer')
 
 ; (async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-    args: [ '--disable-web-security' ]
-  })
+  const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto('https://www.site-with-captcha.com/')
   await page.addScriptTag({url: "https://cdn.jsdelivr.net/gh/pguardiario/captchas/captchas.js"})

@@ -50,9 +50,16 @@ const solve = async (arguments) => {
           window[div.getAttribute('data-callback')](response.request)
         }
 
-        let form = method === 'hcaptcha' ?
-          document.querySelector('form#challenge-form') :
-          [...document.querySelectorAll('form')].find(f => f.querySelector('.g-recaptcha'))
+        let form
+        if(method === 'hcaptcha'){
+          let el = document.querySelector('.h-captcha')
+          form = el ? el.closest('form') : document.querySelector('#challenge-form')
+        } else {
+          form = [...document.querySelectorAll('form')].find(f => f.querySelector('.g-recaptcha'))
+        }
+
+
+
         if(form && options.submit !== false){
           console.log('form found')
           form.submit()
@@ -92,7 +99,8 @@ const solve = async (arguments) => {
   const solveCaptchas = async () => {
     // look for hcaptcha / recaptcha\
     // setTimeout(() => callback('Failed'), 60000)
-    let form = document.querySelector('#challenge-form')
+    let el = document.querySelector('.h-captcha')
+    let form = el ? el.closest('form') : document.querySelector('#challenge-form')
     if(form){
       return await solveHcaptcha()
     }

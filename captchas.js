@@ -75,7 +75,16 @@ const solve = async (arguments) => {
 
   const solveHcaptcha = async () => {
     console.log('hcaptcha')
-    let sitekey = document.querySelector('[data-sitekey]').getAttribute('data-sitekey')
+    let sitekey = ''
+    // Sometimes the sitekey is not in data-sitekey but in the iframe src url.
+    if (document.querySelector("[data-sitekey]")) {
+      sitekey = document
+        .querySelector("[data-sitekey]")
+        .getAttribute("data-sitekey")
+    } else {
+      const iframeUrlArray = document.querySelector("iframe").getAttribute("src").split("=")
+      sitekey = iframeUrlArray[iframeUrlArray.length - 1]
+    }
     console.log(sitekey)
 
     await waitForCaptcha(sitekey, 'hcaptcha')

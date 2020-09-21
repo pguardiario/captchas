@@ -18,6 +18,10 @@ const solve = async (arguments) => {
   const waitForCaptcha = async (sitekey, method) => {
     let key = method === 'hcaptcha' ? 'sitekey' : 'googlekey'
     let api_url = `https://2captcha.com/in.php?header_acao=1&key=${api_key}&method=${method}&${key}=${sitekey}&json=1&pageurl=${document.location.href}`
+    let div = document.querySelector('[data-s]')
+    if(div){
+      api_url += `&data-s=${div.getAttribute('data-s')}`
+    }
 
     let {status, request} = await get(api_url)
     if(status) {

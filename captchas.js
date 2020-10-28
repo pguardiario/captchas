@@ -79,7 +79,11 @@ const solve = async (arguments) => {
 
   const solveHcaptcha = async () => {
     console.log('hcaptcha')
-    let sitekey = document.querySelector('[data-sitekey]').getAttribute('data-sitekey')
+
+    let sitekey = document.querySelector('[data-sitekey]') ?
+      document.querySelector('[data-sitekey]').getAttribute('data-sitekey') :
+      document.querySelector('iframe[src*=sitekey]').src.match(/[?&]sitekey=([\w-]+)/)[1]
+
     console.log(sitekey)
 
     await waitForCaptcha(sitekey, 'hcaptcha')

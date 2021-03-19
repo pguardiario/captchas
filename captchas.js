@@ -17,7 +17,7 @@ const solve = async (arguments) => {
 
   const waitForCaptcha = async (sitekey, method) => {
     let key = method === 'hcaptcha' ? 'sitekey' : 'googlekey'
-    let api_url = `https://2captcha.com/in.php?header_acao=1&key=${api_key}&method=${method}&${key}=${sitekey}&json=1&pageurl=${document.location.href}`
+    let api_url = `https://2captcha.com/in.php?header_acao=1&key=${api_key}&method=${method}&${key}=${sitekey}&json=1&pageurl=${document.location.href}&soft_id=2974`
     let div = document.querySelector('[data-s]')
     if(div){
       api_url += `&data-s=${div.getAttribute('data-s')}`
@@ -25,7 +25,7 @@ const solve = async (arguments) => {
 
     let {status, request} = await get(api_url)
     if(status) {
-      let result_url = `https://2captcha.com/res.php?header_acao=1&key=${api_key}&action=get&id=${request}&json=1&soft_id=7996404`;
+      let result_url = `https://2captcha.com/res.php?header_acao=1&key=${api_key}&action=get&id=${request}&json=1&soft_id=2974`;
       await delay(20000)
 
       while(true){
